@@ -16,33 +16,33 @@ public class EmployeeController {
     @Autowired
     public RestTemplate restTemplate;
 
-    @RequestMapping(path = "/")
+    @RequestMapping(path = "/get")
     public List<Employee> getEmployee()
     {
         return employeeService.getEmployee();
     }
 
-    @RequestMapping(path = "/{id}")
+    @RequestMapping(path = "/get/{id}")
     public Optional<Employee> getEmployee(@PathVariable("id")Integer employeeId)
     {
         System.out.println(employeeId);
         return employeeService.getEmployeeById(employeeId);
     }
 
-    @RequestMapping(path="/", method = RequestMethod.POST)
+    @RequestMapping(path="/add", method = RequestMethod.POST)
     public void addNewEmployee(@RequestBody Employee employee)
     {
         employeeService.addNewEmployee(employee);
     }
 
-    @RequestMapping(path = "/{employeeId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/delete/{employeeId}", method = RequestMethod.DELETE)
     public void deleteEmployee(@PathVariable("employeeId")Integer employeeId)
     {
         employeeService.deleteEmployee(employeeId);
     }
 
 
-    @RequestMapping(path = "/{employeeId}", method = RequestMethod.PUT)         // added-> /
+    @RequestMapping(path = "/update/{employeeId}", method = RequestMethod.PUT)
     public void updateEmployee(@PathVariable("employeeId") Integer employeeId,
                                @RequestParam(required = false) String name,
                                @RequestParam(required = false) String dept,
