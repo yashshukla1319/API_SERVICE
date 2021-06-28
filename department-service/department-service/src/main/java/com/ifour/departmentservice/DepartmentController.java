@@ -3,14 +3,15 @@ package com.ifour.departmentservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/department")
-public class DepartmentController {
+public class DepartmentController implements Serializable {
     Department department = new Department();
     @Autowired
     public DepartmentService departmentService;
@@ -48,29 +49,28 @@ public class DepartmentController {
         departmentService.updateDepartment(dept_id, dept_name);
     }
 
-    @RequestMapping(path = "/getemployee/", method = RequestMethod.POST)
-    public List<Department> findEmployeeById()    //Integer id removed
+    @RequestMapping(path = "/getemployee/{dept_id}", method = RequestMethod.GET)
+    public List<Department> findEmployeeById(@PathVariable("dept_id") Integer dept_id)
     {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("http://localhost/employee/", Employee.class);
         List<Employee> employeeInDept = Arrays.asList(new Employee(1, "yash", 10000, 101),
                 new Employee(2, "gaurav", 15000, 101));
 
         return employeeInDept.stream().map(department -> {
             new Department(101, "java");
 
-            Employee employee = restTemplate.getForObject("http://localhost:8080/employee/" + departmentService.getDepartmentBydept_id(101), Employee.class);
+            Employee employee = restTemplate.getForObject("http://localhost:8079/employee/get" + departmentService.getDepartmentBydept_id(101), Employee.class);
             return new Department(employee.getId(), employee.getName(), employee.getSalary());
         })
                 .collect(Collectors.toList());
     }
 
 
-    @RequestMapping(path ="/removeemployee/{id}", method = RequestMethod.DELETE)
+    /*@RequestMapping(path ="/removeemployee/{id}", method = RequestMethod.DELETE)
     public void deleteEmployeeById(@PathVariable("id")Integer id)
     {
         departmentService.deleteEmployeeById(id);
-    }
+    }*/
 
 }
 

@@ -3,7 +3,6 @@ package com.ifour.employeeservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -54,11 +53,6 @@ public class EmployeeService {
         {
             employee.setName(name);
         }
-
-        /*if(dept !=null && dept.length()>0 && !Objects.equals(employee.getDept(),dept))
-        {
-            employee.setDept(dept);
-        }*/
 
         if(salary !=null && salary>0 && !Objects.equals(employee.getSalary(),salary))
         {
