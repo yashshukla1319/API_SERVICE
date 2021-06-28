@@ -16,7 +16,7 @@ public class DepartmentController implements Serializable {
     @Autowired
     public DepartmentService departmentService;
     @Autowired
-    public RestTemplate getrestTemplate;
+    public RestTemplate restTemplate;
 
     @RequestMapping(path = "/get")
     public List<Department> getDepartment() {
@@ -37,7 +37,6 @@ public class DepartmentController implements Serializable {
 
     @RequestMapping(path = "/delete/{delete}", method = RequestMethod.DELETE)
     public void deleteDepartment(@PathVariable("delete") Integer dept_id) {
-        RestTemplate restTemplate = new RestTemplate();
         departmentService.deleteDepartment(dept_id);
     }
 
@@ -49,17 +48,16 @@ public class DepartmentController implements Serializable {
         departmentService.updateDepartment(dept_id, dept_name);
     }
 
-    @RequestMapping(path = "/getemployee/{dept_id}", method = RequestMethod.GET)
-    public List<Department> findEmployeeById(@PathVariable("dept_id") Integer dept_id)
+    @RequestMapping(path = "/getemployee/{id}", method = RequestMethod.GET)
+    public List<Department> findEmployeeById(@PathVariable("id") Integer id)
     {
-        RestTemplate restTemplate = new RestTemplate();
         List<Employee> employeeInDept = Arrays.asList(new Employee(1, "yash", 10000, 101),
                 new Employee(2, "gaurav", 15000, 101));
 
         return employeeInDept.stream().map(department -> {
             new Department(101, "java");
 
-            Employee employee = restTemplate.getForObject("http://localhost:8079/employee/get" + departmentService.getDepartmentBydept_id(101), Employee.class);
+            Employee employee = restTemplate.getForObject("http://localhost:8079/employee/getbydept" + departmentService.getDepartmentBydept_id(101), Employee.class);
             return new Department(employee.getId(), employee.getName(), employee.getSalary());
         })
                 .collect(Collectors.toList());

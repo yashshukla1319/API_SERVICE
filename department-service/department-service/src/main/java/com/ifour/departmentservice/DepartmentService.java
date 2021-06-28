@@ -57,25 +57,16 @@ public class DepartmentService {
         return departmentRepository.findAll();
     }
 
-    public List<Employee> findEmployeeById(Integer dept_id) {
-
+    public List<Employee> findEmployeeById(Integer id) {
         RestTemplate restTemplate = new RestTemplate();
-        List<Employee> employeeInDept = Arrays.asList(new Employee(1, "yash", 10000, 101),
-                new Employee(2, "gaurav", 15000, 101));
-
-        return employeeInDept.stream().map(department -> {
-            new Department(101, "java");
-
-            Employee employee = restTemplate.getForObject("http://localhost:8079/employee/get" + departmentRepository.findAll(),getDepartmentBydept_id(101), Employee.class);
-            return new Department(employee.getId(), employee.getName(), employee.getSalary());
-        })
-                .collect(Collectors.toList());
+            return ((List) restTemplate.getForObject("http://localhost:8079/employee/get", Employee.class));
+    }
         //return departmentRepository.findEmployeeById(dept_id);
         /*if (findEmployeeById(id) != null && findEmployeeById(id).isEmpty()){
             throw new IllegalStateException("Employee with this Id is not present");
         }
         return (List<Employee>) departmentRepository.findEmployeeById(id);*/
-    }
+
 
     /*public void deleteEmployeeById(Integer id) {
         boolean exist = departmentRepository.existsById(id);

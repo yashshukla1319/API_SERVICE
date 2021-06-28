@@ -50,6 +50,10 @@ public class EmployeeController {
     {
         employeeService.updateEmployee(employeeId,name,dept,salary);
     }
+    @RequestMapping(path = "/getbydept/{dept_id}",method = RequestMethod.GET)
+    public Optional<Employee> getByDept(@PathVariable("dept_id")Integer dept_id) {
+        return employeeService.getByDepartment(dept_id);
+    }
 }
 
 

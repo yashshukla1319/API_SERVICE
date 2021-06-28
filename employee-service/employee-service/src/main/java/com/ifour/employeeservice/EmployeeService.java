@@ -61,6 +61,11 @@ public class EmployeeService {
 
         employeeRepository.save(employee);
     }
+
+    public Optional<Employee> getByDepartment(Integer dept_id) {
+        Optional<Employee> getByDepartment= employeeRepository.findById(dept_id);
+        return  employeeRepository.findById(dept_id);
+    }
 }
 
 
