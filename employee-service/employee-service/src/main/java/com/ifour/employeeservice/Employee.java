@@ -1,36 +1,31 @@
 package com.ifour.employeeservice;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table
-public class Employee {
+public class Employee implements Serializable {
     @Id
-    @SequenceGenerator(name="employee_sequence",
-            sequenceName="employee_sequence",
-            allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "employee_sequence"
-    )
-    private Integer id;
+    private int id;
     private String name;
     private int salary;
-    private int dept_id;
+    private int deptId;
 
     public Employee() {
     }
 
-    public Employee(int id, String name, int salary,int dept_id) {
+    public Employee(int id, String name, int salary,int deptId) {
         this.id = id;
         this.name = name;
         this.salary = salary;
-        this.dept_id = dept_id;
+        this.deptId = deptId;
     }
 
-    public Employee(String name, int salary, int dept_id) {
+    public Employee(String name, int salary, int deptId) {
         this.name = name;
         this.salary = salary;
-        this.dept_id = dept_id;
+        this.deptId = deptId;
     }
 
     public int getId() {
@@ -57,12 +52,12 @@ public class Employee {
         this.salary = salary;
     }
 
-    public  int getDept_id() {
-        return dept_id;
+    public  int getDeptId() {
+        return deptId;
     }
 
-    public void setDept_id(int dept_id) {
-        this.dept_id = dept_id;
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
     }
 
     @Override
@@ -71,7 +66,7 @@ public class Employee {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", salary=" + salary +
-                ", dept_id=" + dept_id +
+                ", deptId=" + deptId +
                 '}';
     }
 }

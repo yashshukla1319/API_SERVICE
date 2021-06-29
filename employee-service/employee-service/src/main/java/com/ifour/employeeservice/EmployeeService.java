@@ -31,23 +31,23 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public void deleteEmployee(Integer employeeId) {
-        boolean exist = employeeRepository.existsById(employeeId);
+    public void deleteEmployee(Integer id) {
+        boolean exist = employeeRepository.existsById(id);
         if(!exist)
         {
-            throw new IllegalStateException("Employee with Id"+employeeId+"does not exists");
+            throw new IllegalStateException("Employee with Id"+id+"does not exists");
         }
-        employeeRepository.deleteById(employeeId);
+        employeeRepository.deleteById(id);
     }
 
     @Transactional
-    public void updateEmployee(Integer employeeId, String name, String dept, Integer salary)
+    public void updateEmployee(Integer id, String name, String deptId, Integer salary)
     {
-        System.out.println( employeeId);
+        System.out.println(id);
         System.out.println(name);
-        System.out.println(dept);
+        System.out.println(deptId);
         System.out.println(salary);
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(()->new IllegalStateException("Employee with Id"+employeeId+"is not present"));
+        Employee employee = employeeRepository.findById(id).orElseThrow(()->new IllegalStateException("Employee with Id"+id+"is not present"));
 
         if(name !=null &&  !Objects.equals(employee.getName(),name))
         {
@@ -62,9 +62,8 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public Optional<Employee> getByDepartment(Integer dept_id) {
-        Optional<Employee> getByDepartment= employeeRepository.findById(dept_id);
-        return  employeeRepository.findById(dept_id);
+    public Optional<Employee> getEmployeeByDeptId(Integer deptId) {
+        return  employeeRepository.findByDeptId(deptId);
     }
 }
 

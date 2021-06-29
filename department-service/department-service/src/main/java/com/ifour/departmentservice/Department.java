@@ -6,19 +6,9 @@ import javax.persistence.*;
 @Table
 public class Department {
     @Id
-
-    @SequenceGenerator(name = "department_sequence",
-            sequenceName = "department_sequence",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "department_sequence"
-    )
-
-    //@Id
-    private Integer dept_id;
-    private String dept_name;
-    @JoinColumn(name = "id",updatable = false,insertable = false)
-    private int id;
+    private Integer deptId;
+    private String deptName;
+    //@JoinColumn(name = "id",updatable = false,insertable = false)
     //@NotFound(action = NotFoundAction.EXCEPTION)
     //@ManyToOne
     //@JoinColumn(name = "dept_id",updatable = false,insertable = false)
@@ -28,40 +18,40 @@ public class Department {
     public Department() {
     }
 
-    public Department(int dept_id, String dept_name) {
-        this.dept_id = dept_id;
-        this.dept_name = dept_name;
+    public Department(int deptId, String deptName) {
+        this.deptId = deptId;
+        this.deptName = deptName;
     }
 
-    public Department(String dept_name) {
-        this.dept_name = dept_name;
+    public Department(String deptName) {
+        this.deptName = deptName;
     }
 
     public Department(int id, String name, int salary) {
     }
 
 
-    public int getDept_id() {
-        return dept_id;
+    public int getDeptId() {
+        return deptId;
     }
 
-    public void setDept_id(int dept_id) {
-        this.dept_id = dept_id;
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
     }
 
-    public String getDept_name() {
-        return dept_name;
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setDept_name(String dept_name) {
-        this.dept_name = dept_name;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
     @Override
     public String toString() {
         return "Department{" +
-                "dept_id=" + dept_id +
-                ", dept_name='" + dept_name + '\'' +
+                "deptId=" + deptId +
+                ", deptName='" + deptName + '\'' +
                 '}';
     }
 

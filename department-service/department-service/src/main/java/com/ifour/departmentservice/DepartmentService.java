@@ -18,25 +18,25 @@ public class DepartmentService {
     public DepartmentRepository departmentRepository;
 
 
-    public void updateDepartment(Integer dept_id, String dept_name) {
-        Department department = departmentRepository.findById(dept_id).orElseThrow(()->new IllegalStateException("Department with Id"+dept_id+"is not present"));
+    public void updateDepartment(Integer deptId, String deptName) {
+        Department department = departmentRepository.findById(deptId).orElseThrow(()->new IllegalStateException("Department with Id"+deptId+"is not present"));
 
-        if(!Objects.equals(department.getDept_id(),dept_id))
+        if(!Objects.equals(department.getDeptId(),deptId))
         {
-            department.setDept_id(dept_id);
+            department.setDeptId(deptId);
         }
 
-        if(!Objects.equals(department.getDept_name(),dept_name))
+        if(!Objects.equals(department.getDeptName(),deptName))
         {
-            department.setDept_name(dept_name);
+            department.setDeptName(deptName);
         }
 
         departmentRepository.save(department);
     }
 
     public void addDepartment(Department department) {
-        Optional<Department> getDepartmentBydept_id =  departmentRepository.findById(department.getDept_id());
-        if (getDepartmentBydept_id !=null && getDepartmentBydept_id.isPresent()){
+        Optional<Department> getDepartmentBydeptId =  departmentRepository.findById(department.getDeptId());
+        if (getDepartmentBydeptId !=null && getDepartmentBydeptId.isPresent()){
             throw new IllegalStateException("Department with this ID already exists");
         }
 
@@ -53,14 +53,14 @@ public class DepartmentService {
         departmentRepository.deleteById(dept_id);
     }
 
-    public List<Department> getDepartmentBydept_id(Integer dept_id) {
+    public List<Department> getDepartmentBydeptId(Integer deptId) {
         return departmentRepository.findAll();
     }
 
-    public List<Employee> findEmployeeById(Integer id) {
-        RestTemplate restTemplate = new RestTemplate();
-            return ((List) restTemplate.getForObject("http://localhost:8079/employee/get", Employee.class));
-    }
+    //public List<Employee> findEmployeeById(Integer id) {
+      //  RestTemplate restTemplate = new RestTemplate();
+        //    return ((List) restTemplate.getForObject("http://localhost:8079/employee/get", Employee.class));
+    //}
         //return departmentRepository.findEmployeeById(dept_id);
         /*if (findEmployeeById(id) != null && findEmployeeById(id).isEmpty()){
             throw new IllegalStateException("Employee with this Id is not present");

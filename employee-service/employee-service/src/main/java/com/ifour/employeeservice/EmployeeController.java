@@ -1,9 +1,11 @@
 package com.ifour.employeeservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.persistence.IdClass;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,10 +25,10 @@ public class EmployeeController {
     }
 
     @RequestMapping(path = "/get/{id}")
-    public Optional<Employee> getEmployee(@PathVariable("id")Integer employeeId)
+    public Optional<Employee> getEmployee(@PathVariable("id")Integer id)
     {
-        System.out.println(employeeId);
-        return employeeService.getEmployeeById(employeeId);
+        System.out.println(id);
+        return employeeService.getEmployeeById(id);
     }
 
     @RequestMapping(path="/add", method = RequestMethod.POST)
@@ -36,23 +38,23 @@ public class EmployeeController {
     }
 
     @RequestMapping(path = "/delete/{employeeId}", method = RequestMethod.DELETE)
-    public void deleteEmployee(@PathVariable("employeeId")Integer employeeId)
+    public void deleteEmployee(@PathVariable("employeeId")Integer id)
     {
-        employeeService.deleteEmployee(employeeId);
+        employeeService.deleteEmployee(id);
     }
 
 
     @RequestMapping(path = "/update/{employeeId}", method = RequestMethod.PUT)
     public void updateEmployee(@PathVariable("employeeId") Integer employeeId,
                                @RequestParam(required = false) String name,
-                               @RequestParam(required = false) String dept,
+                               @RequestParam(required = false) String deptId,
                                @RequestParam(required = false) Integer salary)
     {
-        employeeService.updateEmployee(employeeId,name,dept,salary);
+        employeeService.updateEmployee(employeeId,name,deptId,salary);
     }
-    @RequestMapping(path = "/getbydept/{dept_id}",method = RequestMethod.GET)
-    public Optional<Employee> getByDept(@PathVariable("dept_id")Integer dept_id) {
-        return employeeService.getByDepartment(dept_id);
+    @RequestMapping(path = "/getbydept/{deptId}",method = RequestMethod.GET)
+    public Optional<Employee> findByDept_Id(@PathVariable("deptId")Integer deptId) {
+        return employeeService.getEmployeeByDeptId(deptId);
     }
 }
 
