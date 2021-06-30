@@ -3,6 +3,7 @@ package com.ifour.employeeservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -62,8 +63,10 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public Optional<Employee> getEmployeeByDeptId(Integer deptId) {
-        return  employeeRepository.findByDeptId(deptId);
+    public List<Employee> findAllByDeptId(Integer deptId) {
+        //Employee employee = employeeRepository.findAllByDeptId(deptId);
+        return employeeRepository.findAllByDeptId(deptId).stream().toList();
+        //return employeeRepository.findAllByDeptId(deptId);
     }
 }
 

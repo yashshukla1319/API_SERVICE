@@ -3,8 +3,6 @@ package com.ifour.payrollservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -19,8 +17,8 @@ public class PayrollService {
 
     }
 
-    public Optional<Payroll> getPayrollByE_id(Integer e_id) {
-        return payrollRepository.findById(e_id);
+    public Optional<Payroll> findPayrollByEmployeeId(Integer employeeId) {
+        return payrollRepository.findPayrollByEmployeeId(employeeId);
     }
 
     public void addPayroll(Payroll payroll) {
@@ -28,17 +26,17 @@ public class PayrollService {
         payrollRepository.save(payroll);
     }
 
-    public void deletePayroll(Integer e_id) {
-        boolean exist = payrollRepository.existsById(e_id);
+    public void deletePayroll(Integer employeeId) {
+        boolean exist = payrollRepository.existsById(employeeId);
         if(!exist)
         {
             throw new IllegalStateException("Employee with Id does not exists");
         }
-        payrollRepository.deleteById(e_id);
+        payrollRepository.deleteById(employeeId);
     }
     @Transactional
-    public void updatePayroll(Integer e_id, Integer basic, Integer allowance, Integer deduction, Integer net_salary) {
-        Payroll payroll = payrollRepository.findById(e_id).orElseThrow(()->new IllegalStateException("Employee with Id"+e_id+"is not present"));
+    public void updatePayroll(Integer employeeId, Integer basic, Integer allowance, Integer deduction, Integer net_salary) {
+        Payroll payroll = payrollRepository.findById(employeeId).orElseThrow(()->new IllegalStateException("Employee with Id"+employeeId+"is not present"));
 
         if(!Objects.equals(payroll.getBasic(),basic))
         {
@@ -59,4 +57,7 @@ public class PayrollService {
     }
 
 
+    /*public Payroll findByEmployeeId(Integer E_id) {
+        return payrollRepository.findByEmployeeId(E_id);
+    }*/
 }

@@ -3,10 +3,9 @@ package com.ifour.employeeservice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Integer>{
-
-    public Optional<Employee> findByDeptId(Integer deptId);
+    List<Employee> findAllByDeptId(Integer deptId);
 }

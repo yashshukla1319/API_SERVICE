@@ -19,10 +19,10 @@ public class PayrollControll {
         return payrollService.getPayroll();
     }
 
-    @RequestMapping(path = "/get/{E_id}")
-    public Optional<Payroll> getPayrollByE_id(@PathVariable("E_id") Integer E_id)
+    @RequestMapping(path = "/get/{employeeId}")
+    public Optional<Payroll> findPayrollByEmployeeId(@PathVariable("employeeId") Integer employeeId)
     {
-        return payrollService.getPayrollByE_id(E_id);
+        return payrollService.findPayrollByEmployeeId(employeeId);
     }
     @RequestMapping(path="/add", method = RequestMethod.POST)
     public void addPayroll(@RequestBody Payroll payroll)
@@ -30,22 +30,28 @@ public class PayrollControll {
         payrollService.addPayroll(payroll);
     }
 
-    @RequestMapping(path = "/delete/{E_id}", method = RequestMethod.DELETE)
-    public void deletePayroll(@PathVariable("E_id")Integer E_id)
+    @RequestMapping(path = "/delete/{employeeId}", method = RequestMethod.DELETE)
+    public void deletePayroll(@PathVariable("employeeId")Integer employeeId)
     {
-        payrollService.deletePayroll(E_id);
+        payrollService.deletePayroll(employeeId);
     }
 
 
-    @RequestMapping(path = "/update/{E_id}", method = RequestMethod.PUT)
-    public void updatePayroll(@PathVariable("E_id") Integer E_id,
+    @RequestMapping(path = "/update/{employeeId}", method = RequestMethod.PUT)
+    public void updatePayroll(@PathVariable("employeeId") Integer employeeId,
                               @RequestParam(required = false)Integer basic,
                               @RequestParam(required = false)Integer allowance,
                               @RequestParam(required = false)Integer deduction,
                               @RequestParam(required = false)Integer net_salary)
     {
-        payrollService.updatePayroll(E_id,basic,allowance,deduction,net_salary);
+        payrollService.updatePayroll(employeeId,basic,allowance,deduction,net_salary);
     }
+
+    /*@RequestMapping(path = "/byEmployeeId/{employeeId}")
+    public Payroll findByEmployeeId(@PathVariable("employeeId") Integer employeeId){
+        return payrollService.findByEmployeeId(employeeId);
+
+    }*/
 
 }
 

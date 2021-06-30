@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 public class DepartmentService {
     @Autowired
     public DepartmentRepository departmentRepository;
+    @Autowired
+    public RestTemplate restTemplate;
 
 
     public void updateDepartment(Integer deptId, String deptName) {
@@ -79,6 +81,28 @@ public class DepartmentService {
 
     public List<Department> getDepartment() {
         return departmentRepository.findAll();
+    }
+
+    public ResponseTemplate findEmployeeByDeptId(Integer deptId) {
+        ResponseTemplate responseTemplate = new ResponseTemplate();
+        Department department = departmentRepository.findEmployeeByDeptId(deptId);
+
+        Employee employee = restTemplate.getForObject("http://localhost:8079/employee/getbydept/"+department.getDeptId(),Employee.class);
+        responseTemplate.setDepartment(department);
+        responseTemplate.setEmployee(employee);
+
+        return responseTemplate;
+    }
+
+    public ResponseTemplate findPayrollByEmployeeId(Integer employeeId) {
+        ResponseTemplate responseTemplate = new ResponseTemplate();
+        Department department = departmentRepository.findPayrollByEmployeeId(employeeId);
+
+        Payroll payroll = restTemplate.getForObject("http://localhost:8078/payroll/getPayroll/"+department.getEmployeeId(),Payroll.class);
+        responseTemplate.setPayroll(payroll);
+        responseTemplate.setDepartment(department);
+        return responseTemplate;
+
     }
 }
 

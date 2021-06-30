@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.IdClass;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,8 +54,10 @@ public class EmployeeController {
         employeeService.updateEmployee(employeeId,name,deptId,salary);
     }
     @RequestMapping(path = "/getbydept/{deptId}",method = RequestMethod.GET)
-    public Optional<Employee> findByDept_Id(@PathVariable("deptId")Integer deptId) {
-        return employeeService.getEmployeeByDeptId(deptId);
+    public List<Employee> findAllByDeptId(@PathVariable("deptId")Integer deptId) {
+        //Employee employee = employeeService.findAllByDeptId(deptId);
+        return employeeService.findAllByDeptId(deptId).stream().toList();
+        // return employeeService.findAllByDeptId(deptId);
     }
 }
 

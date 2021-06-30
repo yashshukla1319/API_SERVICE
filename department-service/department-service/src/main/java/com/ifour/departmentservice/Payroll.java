@@ -1,14 +1,6 @@
-package com.ifour.payrollservice;
+package com.ifour.departmentservice;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table
 public class Payroll {
-
-    @Id
     private int employeeId;
     private int basic;         //Basic
     private int allowance;     //HRA + others
