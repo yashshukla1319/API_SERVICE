@@ -1,11 +1,38 @@
 package com.ifour.departmentservice;
 
-public class Payroll {
+import java.io.Serializable;
+import java.util.List;
+
+public class Payroll implements Serializable {
     private int employeeId;
     private int basic;         //Basic
     private int allowance;     //HRA + others
     private int deduction;     //ESI + TDS + Tax + PF
     private int net_salary;
+
+    public Payroll(int employeeId, int basic, int allowance, int deduction, int net_salary, List<Payroll> payrolls) {
+        this.employeeId = employeeId;
+        this.basic = basic;
+        this.allowance = allowance;
+        this.deduction = deduction;
+        this.net_salary = net_salary;
+        this.payrolls = payrolls;
+    }
+
+    private List<Payroll> payrolls;
+
+
+    public List<Payroll> getPayrolls() {
+        return payrolls;
+    }
+
+    public void setPayrolls(List<Payroll> payrolls) {
+        this.payrolls = payrolls;
+    }
+
+    public Payroll(List<Payroll> payrolls) {
+        this.payrolls = payrolls;
+    }
 
     public Payroll() {
     }

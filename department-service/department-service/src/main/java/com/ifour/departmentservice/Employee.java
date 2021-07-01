@@ -1,10 +1,37 @@
 package com.ifour.departmentservice;
 
-public class Employee {
+import java.io.Serializable;
+import java.util.List;
+
+public class Employee implements Serializable {
     private int id;
     private String name;
     private int salary;
     private int deptId;
+    private List<Employee> employeeList;
+
+    public Employee(List<Employee> employeeList, Employee employee) {
+        this.employeeList = employeeList;
+        this.employee = employee;
+    }
+
+    public Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
 
     public Employee() {
     }

@@ -19,13 +19,13 @@ public class DepartmentController implements Serializable {
     public RestTemplate restTemplate;
 
     @RequestMapping(path = "/get")
-    public List<Department> getDepartment() {
-        return departmentService.getDepartment();
+    public List<Department> getAllDepartment() {
+        return departmentService.getAllDepartment();
     }
 
     @RequestMapping(path = "/get/{id}")
-    public List<Department> getDepartmentBydeptId(@PathVariable("id") Integer deptId) {
-        return departmentService.getDepartmentBydeptId(deptId);
+    public List<Department> getDepartmentByDeptId(@PathVariable("id") Integer deptId) {
+        return departmentService.getAllDepartmentByDeptId(deptId);
     }
 
 
@@ -48,22 +48,28 @@ public class DepartmentController implements Serializable {
         departmentService.updateDepartment(deptId, deptName);
     }
 
-    @RequestMapping(path = "/getemployee/{id}")
+    /*@RequestMapping(path = "/getemployee/{id}")
     public ResponseTemplate findEmployeeByDeptId(@PathVariable("id") Integer deptId) {
+        return departmentService.findEmployeeByDeptId(deptId);
+    }*/
+
+    @RequestMapping(path = "/getemployee/{id}")
+    public List<Employee> findEmployeeByDeptId(@PathVariable("id") Integer deptId) {
         return departmentService.findEmployeeByDeptId(deptId);
     }
 
     @RequestMapping(path = "/getPayroll/{id}")
+    public List<Payroll> findPayrollByEmployeeId(@PathVariable("id") Integer employeeId) {
+        return departmentService.findPayrollByEmployeeId(employeeId);
+
+
+    }
+}
+
+    /*@RequestMapping(path = "/getPayroll/{id}")
     public ResponseTemplate findPayrollByEmployeeId(@PathVariable("id")Integer employeeId){
         return departmentService.findPayrollByEmployeeId(employeeId);
-    }
-
-
-
-
-
-
-
+    }*/
         /*List<Employee> employeeInDept = Arrays.asList(new Employee(1, "yash", 10000, 101),
                 new Employee(2, "gaurav", 15000, 101));
 
@@ -88,5 +94,5 @@ public class DepartmentController implements Serializable {
         departmentService.deleteEmployeeById(id);
     }*/
 
-}
+
 

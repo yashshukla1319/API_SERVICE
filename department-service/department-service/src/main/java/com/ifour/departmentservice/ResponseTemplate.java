@@ -1,5 +1,6 @@
 package com.ifour.departmentservice;
 
+
 public class ResponseTemplate {
     public Employee employee;
     public Department department;
