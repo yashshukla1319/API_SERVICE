@@ -44,8 +44,9 @@ public class DepartmentController implements Serializable {
     @RequestMapping(path = "/update/{put}", method = RequestMethod.PUT)
     public void updateDepartment(@PathVariable("put")
                                  @RequestParam(required = false) Integer deptId,
-                                 @RequestParam(required = false) String deptName) {
-        departmentService.updateDepartment(deptId, deptName);
+                                 @RequestParam(required = false) String deptName,
+                                 @RequestParam(required = false) Integer employeeId) {
+        departmentService.updateDepartment(deptId, deptName, employeeId);
     }
 
     /*@RequestMapping(path = "/getemployee/{id}")
@@ -59,7 +60,7 @@ public class DepartmentController implements Serializable {
     }
 
     @RequestMapping(path = "/getPayroll/{id}")
-    public List<Payroll> findPayrollByEmployeeId(@PathVariable("id") Integer employeeId) {
+    public Payroll findPayrollByEmployeeId(@PathVariable("id") Integer employeeId) {
         return departmentService.findPayrollByEmployeeId(employeeId);
 
 

@@ -17,7 +17,7 @@ public class DepartmentService {
     public RestTemplate restTemplate;
 
 
-    public void updateDepartment(Integer deptId, String deptName) {
+    public void updateDepartment(Integer deptId, String deptName, Integer employeeId) {
         Department department = departmentRepository.findById(deptId).orElseThrow(() -> new IllegalStateException("Department with Id" + deptId + "is not present"));
 
         if (!Objects.equals(department.getDeptId(), deptId)) {
@@ -97,10 +97,10 @@ public class DepartmentService {
         return employees;
     }
 
-    public List<Payroll> findPayrollByEmployeeId(Integer employeeId){
-        ResponseEntity<List<Payroll>> responseEntity = restTemplate.exchange("http://localhost:8078/payroll/get/" + employeeId, HttpMethod.GET,
-                null, new ParameterizedTypeReference<List<Payroll>>() {});
-        List<Payroll> payrolls = responseEntity.getBody();
+    public Payroll findPayrollByEmployeeId(Integer employeeId){
+        ResponseEntity<Payroll> responseEntity = restTemplate.exchange("http://localhost:8078/payroll/get/" + employeeId, HttpMethod.GET,
+                null, new ParameterizedTypeReference<Payroll>() {});
+        Payroll payrolls = responseEntity.getBody();
         return payrolls;
 
     }
