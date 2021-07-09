@@ -17,7 +17,7 @@ public class DepartmentService {
     public RestTemplate restTemplate;
 
 
-    public void updateDepartment(Integer deptId, String deptName, Integer employeeId) {
+    public Department updateDepartment(Integer deptId, String deptName, Integer employeeId) {
         Department department = departmentRepository.findById(deptId).orElseThrow(() -> new IllegalStateException("Department with Id" + deptId + "is not present"));
 
         if (!Objects.equals(department.getDeptId(), deptId)) {
@@ -27,8 +27,12 @@ public class DepartmentService {
         if (!Objects.equals(department.getDeptName(), deptName)) {
             department.setDeptName(deptName);
         }
+        if (!Objects.equals(department.getEmployeeId(), employeeId)) {
+            department.setEmployeeId(employeeId);
+        }
 
-        departmentRepository.save(department);
+
+        return departmentRepository.save(department);
     }
 
     public void addDepartment(Department department) {

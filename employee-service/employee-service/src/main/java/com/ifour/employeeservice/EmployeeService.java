@@ -64,7 +64,7 @@ public class EmployeeService {
     }
 
     public List<Employee> findAllByDeptId(Integer deptId) {
-        return employeeRepository.findAllByDeptId(deptId);//.stream().toList();
+        return employeeRepository.findAllByDeptId(deptId);
 
     }
 }

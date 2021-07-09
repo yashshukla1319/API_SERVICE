@@ -21,9 +21,9 @@ public class PayrollService {
         return payrollRepository.findPayrollByEmployeeId(employeeId);
     }
 
-    public void addPayroll(Payroll payroll) {
+    public Payroll addPayroll(Payroll payroll) {
 
-        payrollRepository.save(payroll);
+        return payrollRepository.save(payroll);
     }
 
     public void deletePayroll(Integer employeeId) {
@@ -32,7 +32,7 @@ public class PayrollService {
         {
             throw new IllegalStateException("Employee with Id does not exists");
         }
-        payrollRepository.deleteById(employeeId);
+         payrollRepository.deleteById(employeeId);
     }
     @Transactional
     public void updatePayroll(Integer employeeId, Integer basic, Integer allowance, Integer deduction, Integer net_salary) {
@@ -51,6 +51,10 @@ public class PayrollService {
         if(!Objects.equals(payroll.getDeduction(),deduction))
         {
             payroll.setDeduction(deduction);
+        }
+        if(!Objects.equals(payroll.getNet_salary(),net_salary))
+        {
+            payroll.setNet_salary(net_salary);
         }
 
         payrollRepository.save(payroll);
