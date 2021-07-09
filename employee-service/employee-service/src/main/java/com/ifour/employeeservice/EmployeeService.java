@@ -23,26 +23,27 @@ public class EmployeeService {
         return employeeRepository.findById(id);
     }
 
-    public void addNewEmployee(Employee employee) {
+    public Employee addNewEmployee(Employee employee) {
         Optional<Employee> getEmployeeById =  employeeRepository.findById(employee.getId());
         if(getEmployeeById != null && getEmployeeById.isPresent())
         {
             throw new IllegalStateException("Id already present.");
         }
-        employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
-    public void deleteEmployee(Integer id) {
+    public String deleteEmployee(Integer id) {
         boolean exist = employeeRepository.existsById(id);
         if(!exist)
         {
             throw new IllegalStateException("Employee with Id"+id+"does not exists");
         }
         employeeRepository.deleteById(id);
+        return"Employee with id"+id;
     }
 
     @Transactional
-    public void updateEmployee(Integer id, String name, String deptId, Integer salary)
+    public Employee updateEmployee(Integer id, String name, String deptId, Integer salary)
     {
         System.out.println(id);
         System.out.println(name);
@@ -60,7 +61,7 @@ public class EmployeeService {
             employee.setSalary(Math.toIntExact(salary));
         }
 
-        employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     public List<Employee> findAllByDeptId(Integer deptId) {
