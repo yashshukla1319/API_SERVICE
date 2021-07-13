@@ -1,70 +1,82 @@
 package com.ifour.employeeservice;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class EmployeeServiceTest {
     @Autowired
     EmployeeService employeeService;
     @MockBean
-            EmployeeRepository employeeRepository;
+    EmployeeRepository employeeRepository;
+
     Employee employee = new Employee();
-    ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     void getEmployee() {
-        Mockito.when(employeeRepository.findAll()).thenReturn(List.of(employee));
-        List<Employee> output = employeeService.getEmployee();
-        assertEquals(employee,output);
+        List<Employee> employeeList = new ArrayList<>();
+        employeeList.add(employee);
+        Mockito.when(employeeRepository.findAll()).thenReturn(employeeList);
+        List<Employee> output = employeeRepository.findAll();
+        assertEquals(employeeList,output);
     }
 
     @Test
-    void getEmployeeById() {
-        Mockito.when(employeeRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(employee));
+    void getEmployeeById(){
+        Optional<Employee> employeeList = Optional.of(employee);
+        Mockito.when(employeeRepository.findById(Mockito.anyInt())).thenReturn(employeeList);
         Optional<Employee> output = employeeService.getEmployeeById(1);
-        assertEquals(employee,output);
+        assertEquals(employeeList,output);
     }
 
     @Test
-    void addNewEmployee() throws Exception{
+    void addNewEmployee(){
         employee.setName("amit");
         employee.setDeptId(201);
         employee.setId(1);
         Mockito.when(employeeRepository.save(Mockito.any())).thenReturn(employee);
-        Optional<Employee> output = employeeService.getEmployeeById(1);
-        String inputJson = objectMapper.writeValueAsString(employee);
-        assertEquals (inputJson,output);
+        Employee output = employeeService.addNewEmployee(employee);
+        assertEquals(employee,output);
     }
 
     @Test
-    void deleteEmployee() {
-        Mockito.when(employeeRepository.existsById(Mockito.anyInt())).thenReturn(true);
-        Mockito.verify(employeeRepository,null);
-        assertNull(employee);
+    void deleteEmployee(){
+        EmployeeService employeeService1 = Mockito.mock(EmployeeService.class);
+
+        Mockito.when(employeeRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(employee));
+        Mockito.when(employeeRepository.existsById(1)).thenReturn(true);
+        employeeService1.deleteEmployee(1);
+        Mockito.verify(employeeService1,Mockito.times(1)).deleteEmployee(1);
     }
 
     @Test
-    void updateEmployee() throws Exception{
+    void updateEmployee(){
         employee.setName("karan");
         employee.setDeptId(201);
         employee.setId(2);
+        employee.setSalary(5000);
+        Mockito.when(employeeRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(employee));
         Mockito.when(employeeRepository.save(Mockito.any())).thenReturn(employee);
-        Optional<Employee> output = employeeService.getEmployeeById(2);
-        String inputJson = objectMapper.writeValueAsString(employee);
-        assertEquals (inputJson,output);
+        Employee output = employeeService.updateEmployee(2,"karan","201",5000);
+        assertEquals(employee,output);
     }
 
     @Test
-    void findAllByDeptId() throws Exception{
-        Mockito.when(employeeRepository.findAllByDeptId(Mockito.anyInt())).thenReturn(List.of(employee));
+    void findAllByDeptId(){
+
+        List<Employee> employeesList = new ArrayList<>();
+        employeesList.add(employee);
+
+        Mockito.when(employeeRepository.findAllByDeptId(Mockito.anyInt())).thenReturn(employeesList);
         List<Employee> output = employeeService.findAllByDeptId(101);
-        Employee input = objectMapper.convertValue(output,Employee.class);
-        assertEquals(employee,input);
+
+        assertEquals(employeesList,output);
     }
 }
