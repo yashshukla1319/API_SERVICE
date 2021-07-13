@@ -35,13 +35,13 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
-    public void addDepartment(Department department) {
+    public Department addDepartment(Department department) {
         Optional<Department> getDepartmentByDeptId = departmentRepository.findById(department.getDeptId());
         if (getDepartmentByDeptId != null && getDepartmentByDeptId.isPresent()) {
             throw new IllegalStateException("Department with this ID already exists");
         }
 
-        departmentRepository.save(department);
+        return departmentRepository.save(department);
 
     }
 
