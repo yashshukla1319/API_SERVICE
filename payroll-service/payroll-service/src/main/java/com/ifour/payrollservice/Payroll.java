@@ -3,6 +3,7 @@ package com.ifour.payrollservice;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Calendar;
 
 @Entity
 @Table
@@ -10,20 +11,32 @@ public class Payroll {
 
     @Id
     private int employeeId;
-    private int basic;         //Basic
     private int allowance;     //HRA + others
     private int deduction;     //ESI + TDS + Tax + PF
-    private int net_salary;
+    public int net_salary;
+    public int salary;
+    private int unpaidLeaves;
+    private int paidLeaves;
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
 
     public Payroll() {
     }
 
-    public Payroll(int employeeId,int basic, int allowance, int deduction, int net_salary) {
-        this.basic = basic;
+    public Payroll(int employeeId,int salary, int allowance, int deduction, int net_salary,int unpaidLeaves,int paidLeaves) {
         this.allowance = allowance;
+        this.salary = salary;
         this.deduction = deduction;
         this.net_salary = net_salary;
         this.employeeId = employeeId;
+        this.paidLeaves = paidLeaves;
+        this.unpaidLeaves = unpaidLeaves;
     }
 
     public int getEmployeeId()
@@ -35,14 +48,6 @@ public class Payroll {
         this.employeeId = employeeId;
     }
 
-    public int getBasic() {
-        return basic;
-    }
-
-    public void setBasic(int basic) {
-        this.basic = basic;
-    }
-
     public int getAllowance() {
         return allowance;
     }
@@ -52,7 +57,7 @@ public class Payroll {
     }
 
     public int getDeduction() {
-        return deduction;
+        return unpaidLeaves*(salary/Calendar.DAY_OF_MONTH);
     }
 
     public void setDeduction(int deduction) {
@@ -60,7 +65,7 @@ public class Payroll {
     }
 
     public int getNet_salary() {
-        return net_salary;
+        return salary-deduction-allowance;
     }
 
     public void setNet_salary(int net_salary) {
@@ -71,10 +76,12 @@ public class Payroll {
     @Override
     public String toString() {
         return "Payroll{" +"employeeId"+ employeeId +
-                "basic=" + basic +
                 ", allowance=" + allowance +
                 ", deduction=" + deduction +
                 ", net_salary=" + net_salary +
+                ",salary="+salary+
+                ",unpaid leaves = " +unpaidLeaves+
+                ",paid leaves = " +paidLeaves+
                 '}';
     }
 

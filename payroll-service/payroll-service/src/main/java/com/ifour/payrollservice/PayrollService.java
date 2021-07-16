@@ -38,9 +38,9 @@ public class PayrollService {
     public void updatePayroll(Integer employeeId, Integer basic, Integer allowance, Integer deduction, Integer net_salary) {
         Payroll payroll = payrollRepository.findById(employeeId).orElseThrow(()->new IllegalStateException("Employee with Id"+employeeId+"is not present"));
 
-        if(!Objects.equals(payroll.getBasic(),basic))
+        if(!Objects.equals(payroll.getSalary(),basic))
         {
-            payroll.setBasic(basic);
+            payroll.setSalary(basic);
         }
 
         if(!Objects.equals(payroll.getAllowance(),allowance))

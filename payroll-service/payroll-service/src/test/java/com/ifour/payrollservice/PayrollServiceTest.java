@@ -55,7 +55,7 @@ class PayrollServiceTest {
         payroll.setEmployeeId(3);
         payroll.setDeduction(8000);
         payroll.setAllowance(7000);
-        payroll.setBasic(6500);
+        payroll.setSalary(6500);
 
         Payroll output = (Payroll) payrollService.addPayroll(payroll);
 
@@ -79,7 +79,7 @@ class PayrollServiceTest {
         Payroll payroll = new Payroll();
         Mockito.when(payrollRepository.findPayrollByEmployeeId(Mockito.anyInt())).thenReturn(Optional.of(payroll));
         Optional<Payroll> output = payrollService.findPayrollByEmployeeId(1);
-        payroll.setBasic(5000);
+        payroll.setSalary(5000);
         payroll.setAllowance(4000);
         payroll.setDeduction(3000);
         payroll.setEmployeeId(3);

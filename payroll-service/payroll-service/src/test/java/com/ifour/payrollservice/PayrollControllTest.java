@@ -39,7 +39,7 @@ class PayrollControllTest {
         payroll.setEmployeeId(1);
         payroll.setDeduction(8000);
         payroll.setAllowance(7000);
-        payroll.setBasic(6500);
+        payroll.setSalary(6500);
         payroll.setNet_salary(7500);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -58,7 +58,7 @@ class PayrollControllTest {
     void updatePayroll() throws Exception{
         String uri = "/payroll/update/1";
         Payroll payroll = new Payroll();
-        payroll.setBasic(5000);
+        payroll.setSalary(5000);
         payroll.setAllowance(4000);
         payroll.setDeduction(3000);
         payroll.setEmployeeId(3);
