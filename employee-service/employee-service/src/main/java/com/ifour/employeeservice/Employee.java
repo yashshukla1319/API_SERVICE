@@ -2,7 +2,6 @@ package com.ifour.employeeservice;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table
@@ -12,7 +11,7 @@ public class Employee implements Serializable {
     private String name;
     private int salary;
     private int deptId;
-    //private List<Employee>employees;
+    private String deptName;
 
     public Employee() {
     }

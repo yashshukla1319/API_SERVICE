@@ -3,7 +3,6 @@ package com.ifour.employeeservice;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-
 import java.util.List;
 
 @Configurable

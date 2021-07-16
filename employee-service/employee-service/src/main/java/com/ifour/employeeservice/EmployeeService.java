@@ -1,21 +1,24 @@
 package com.ifour.employeeservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EmployeeService {
     @Autowired
     public EmployeeRepository employeeRepository;
 
-    public List<Employee> getEmployee()
+    public List<Employee> getEmployee(int no, int size)
     {
-        return employeeRepository.findAll();
+        Pageable pageable = PageRequest.of(no,size);
+        Page<Employee> employeePage = employeeRepository.findAll(pageable);
+        return employeePage.getContent();
     }
 
     public Optional<Employee> getEmployeeById(Integer id)
@@ -67,6 +70,14 @@ public class EmployeeService {
     public List<Employee> findAllByDeptId(Integer deptId) {
         return employeeRepository.findAllByDeptId(deptId);
 
+    }
+
+    public List<Employee> getEmployeeByName(String name) {
+        return employeeRepository.findAllByName(name);
+    }
+
+    public List<Employee> getEmployeeIn(List<Integer> id) {
+        return employeeRepository.findByIdIn(id);
     }
 }
 

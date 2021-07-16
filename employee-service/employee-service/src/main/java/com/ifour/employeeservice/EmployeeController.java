@@ -3,8 +3,7 @@ package com.ifour.employeeservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/employee")
@@ -16,9 +15,10 @@ public class EmployeeController {
     public RestTemplate restTemplate;
 
     @RequestMapping(path = "/get")
-    public List<Employee> getEmployee()
+    public List<Employee> getEmployee(@RequestParam("no") int no,@RequestParam("size") int size)
     {
-        return employeeService.getEmployee();
+        //Pageable pageable = PageRequest.of(1,5);
+        return employeeService.getEmployee(no,size);
     }
 
     @RequestMapping(path = "/get/{id}")
@@ -26,6 +26,22 @@ public class EmployeeController {
     {
         System.out.println(id);
         return employeeService.getEmployeeById(id);
+    }
+
+    @RequestMapping(path = "/getId")
+    public List<Employee> getEmployeeIn(@RequestParam String id)
+    {
+        List<String> ids = Arrays.asList((id.split(",")));
+        List<Integer> intIds =  ids.stream().mapToInt(Integer::parseInt).boxed().toList();
+
+        //Integer integer = Integer.parseInt(String.valueOf(ids));
+        return employeeService.getEmployeeIn(intIds);
+    }
+
+    @RequestMapping(path = "/getName")
+    public List<Employee> getEmployeeByName(@RequestParam("name")String name)
+    {
+        return employeeService.getEmployeeByName(name);
     }
 
     @RequestMapping(path="/add", method = RequestMethod.POST)
